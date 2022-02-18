@@ -1,16 +1,20 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { increment, decrement } from './redux/reducers/counter';
 import { getPeople } from './redux/reducers/swapi';
 
-import './stylesheets/App.css'
+import Todos from './pages/Todos';
+import Swapi from './pages/Swapi';
+
+import './stylesheets/App.css';
 
 function App() {
   const { count } = useSelector((state) => state.counter);
-  const { people } = useSelector((state) => state.people);
+  // const { people } = useSelector((state) => state.people);
   const dispatch = useDispatch();
 
-  console.log(people)
+  // console.log(people)
 
   // useEffect(() => {
   //   effect
@@ -21,15 +25,22 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Count: { count }</h1>
-      <button onClick={() => dispatch(increment()) }>Increment</button>
-      <button onClick={() => dispatch(decrement())}>Decrement</button>
-      <hr />
-      
-      <h1>PEOPLE</h1>
-      {
+      <div className="row">
+        <div className="col-sm-2">
+          <button onClick={() => dispatch(decrement())}>-</button>
+          <button onClick={() => dispatch(increment())}>+</button>
+          <h4>Count: { count }</h4>
+          <hr />
+        </div>
 
-      }
+        <div className="col-sm-5">
+          <Todos />
+        </div>
+
+        <div className="col-sm-5">
+          <Swapi />
+        </div>
+      </div>
     </div>
   );
 }
