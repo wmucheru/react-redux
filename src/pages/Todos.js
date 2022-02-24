@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, createContext, useContext, useRef } from 'react';
 
 const myTodos = [
     'Cut grass',
@@ -33,15 +33,21 @@ function Todo({ todo }) {
 function TodoForm() {
     const [text, setText] = useState('');
     const [todos, setTodos] = useContext(TodoContext);
+    const renderCount = useRef(1);
 
     const onSubmit = (e) => { 
         e.preventDefault();
-        setTodos(() => [text.toLocaleUpperCase(), ...todos]);
-        setText('');
+
+        if (text) { 
+            setTodos(() => [text.toLocaleUpperCase(), ...todos]);
+            setText('');
+        }
+        renderCount.current = renderCount.current + 1;
     }
 
     return (
         <form className="form-inline" onSubmit={onSubmit}>
+            <div>Render Count: { renderCount.current }</div>
             <input
                 type="text"
                 className="form-control"
